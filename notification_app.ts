@@ -4,10 +4,9 @@ import axios from 'axios';
 const app = express();
 app.use(express.json());
 
-const ROLL_NUMBER = 'RA2311003011723';      // ← change this
-const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXsiOnsiZXhwIjoxNzQzNTc0MzQ0LCJpYXQiOjE3NDM1NzQwNDQsImlzcyI6IkFmZm9yZG1lZG1lZGljYWwIsImp0aSI6ImQ5SImQ5YTJiNjk5LTZhMjctNDRhNS04MWJlZmE0MTZkYTZkSJ9LCJsVkdSJ9LCJlbWFpbCI6InN0cmluZyIsImZpcnN0X25hbWUiOiJzdHJpbmciLCJsYXN0X25hbWUiOiJzdHJpbmcifQ.YApD98gq0IN_OWw7JMfmuUfK1m4hLTm7AIcLDcLAzVg';   // ← change this after Step 9
+const ROLL_NUMBER = 'RA2311003011723';
+const ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzQzNTc0MzQ0LCJpYXQiOjE3NDM1NzQwNDQsImlzcyI6IkFmZm9yZG1lZG1lZGljYWwiLCJqdGkiOiJkOWEyYjY5OS02YTI3LTQ0YTUtODFiZS1mYTQxNmRhNmQ5In0sImVtYWlsIjoic3RyaW5nIiwiZmlyc3RfbmFtZSI6InN0cmluZyIsImxhc3RfbmFtZSI6InN0cmluZyJ9.YApD98gq0IN_OWw7JMfmuUfK1m4hLTm7AIcLDcLAzVg';
 
-// ── Logging Middleware ──────────────────────────
 app.use((req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
 
@@ -32,20 +31,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     };
 
     try {
-      await axios.post(
+      const result = await axios.post(
         'http://34.131.48.25/evaluation-service/log',
-        log
+        log,
+        { timeout: 10000 }
       );
-      console.log('✅ Log sent');
-    } catch (err) {
-      console.error('❌ Log failed:', err);
+      console.log('✅ Log sent:', result.status, result.data);
+    } catch (err: any) {
+      console.error('❌ Log failed:', err.message);
     }
   });
 
   next();
 });
 
-// ── Test Route ──────────────────────────────────
 app.get('/test', (req: Request, res: Response) => {
   res.json({ message: 'Middleware working!' });
 });
