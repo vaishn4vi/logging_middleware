@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "ts-node notification_app.ts"
-},
+    "start": "ts-node notification_app.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,9 +15,18 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/express": "^5.0.6",
     "@types/node": "^25.6.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaishn4vi/logging_middleware.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vaishn4vi/logging_middleware/issues"
+  },
+  "homepage": "https://github.com/vaishn4vi/logging_middleware#readme"
 }
